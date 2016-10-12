@@ -1,0 +1,1 @@
+The game starts initially with all cards facing down. The player is to then flip two cards each round, trying to find a match. If the flipped pair is a match, the player receives two (2) points, and the cards may be removed from the game board. Otherwise, the cards are turned face­ down again and the player loses one (1) point. This continues until all pairs have been found.
