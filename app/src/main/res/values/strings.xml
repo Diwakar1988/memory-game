@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">memory-game</string>
+    <string name="app_name">Colour Memory</string>
+    <string name="high_score">High Score</string>
+    <string name="rank">Rank</string>
+    <string name="name">Name</string>
+    <string name="score">Score</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.fragment.GameHeaderFragment"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"/>
+
+    <TextView
+        android:id="@+id/tv_score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Score = 100"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_height_header"
+        android:textStyle="bold"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_high_score"
+        android:text="@string/high_score"
+        android:textAllCaps="true"/>
+
+</LinearLayout>
