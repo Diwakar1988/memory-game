@@ -3,6 +3,7 @@ package com.github.diwakar1988.colormemory.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import com.github.diwakar1988.colormemory.R;
 import com.github.diwakar1988.colormemory.db.DataController;
-import com.github.diwakar1988.colormemory.db.GamePreferences;
+import com.github.diwakar1988.colormemory.game.ScoreList;
 
 public class HighScoreActivity extends GameBaseActivity {
 
@@ -31,19 +32,19 @@ public class HighScoreActivity extends GameBaseActivity {
 
     private void createScoreTable() {
 
-        GamePreferences.ScoreList list = DataController.getInstance().getScoreList();
+        ScoreList list = DataController.getInstance().getScoreList();
 
         TableLayout tl = (TableLayout) findViewById(R.id.table_layout);
 
         for (int i = 0; i < list.size(); i++) {
-            GamePreferences.ScoreList.Score s = list.getScore(i);
+            ScoreList.Score s = list.getScore(i);
             tl.addView(createTableRow(s));
         }
 
 
     }
 
-    private TableRow createTableRow(GamePreferences.ScoreList.Score s) {
+    private TableRow createTableRow(ScoreList.Score s) {
 
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
@@ -58,7 +59,17 @@ public class HighScoreActivity extends GameBaseActivity {
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(getResources().getColor(R.color.black));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-        tv.setText(String.valueOf(s.rank));
+        tv.setText(String.valueOf(s.getRank()));
+        tr.addView(tv);
+
+        tv = new TextView(this);
+        tv.setLayoutParams(param);
+        tv.setGravity(Gravity.CENTER);
+        tv.setMaxLines(1);
+        tv.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tv.setTextColor(getResources().getColor(R.color.black));
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+        tv.setText(String.valueOf(s.getName()));
         tr.addView(tv);
 
         tv = new TextView(this);
@@ -66,33 +77,13 @@ public class HighScoreActivity extends GameBaseActivity {
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(getResources().getColor(R.color.black));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-        tv.setText(String.valueOf(s.name));
-        tr.addView(tv);
-
-        tv = new TextView(this);
-        tv.setLayoutParams(param);
-        tv.setGravity(Gravity.CENTER);
-        tv.setTextColor(getResources().getColor(R.color.black));
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
-        tv.setText(String.valueOf(s.score));
+        tv.setText(String.valueOf(s.getScore()));
         tr.addView(tv);
 
 
         return tr;
     }
 
-    private GamePreferences.ScoreList createDummyScores(int max) {
-        int highScore=1000;
-        GamePreferences.ScoreList list =new GamePreferences.ScoreList();
-        for (int i=1;i<=max;i++){
-            GamePreferences.ScoreList.Score s = new GamePreferences.ScoreList.Score();
-            s.rank=i;
-            s.name="Player "+(i);
-            s.score=highScore-(100*i);
-            list.add(s);
-        }
-        return list;
-    }
 
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();

@@ -22,8 +22,7 @@ public class Board {
         initialize();
     }
     public void markOpen(int row,int col){
-        Card card = cards[row][col];
-        card.setState(Card.STATE_OPENED);
+       cards[row][col].setState(Card.STATE_OPENED);
     }
     private void initialize(){
         cards =new Card[Configs.BOARD_ROW_COL][Configs.BOARD_ROW_COL];
@@ -46,7 +45,6 @@ public class Board {
 
                 sb.append(COLOUR_PREFIX);
                 sb.append(colorCount);
-//                sb.append(".png");
 
                 Card card =new Card(row,col,sb.toString());
                 cards[row][col]= card;
@@ -57,11 +55,9 @@ public class Board {
                     col=r.nextInt(Configs.BOARD_ROW_COL);
                 }
 
-                try {
-                    cards[row][col]= (Card) card.clone();
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
+                card =new Card(row,col,sb.toString());
+                cards[row][col]= card;
+
 
 
                 colorCount++;
@@ -76,9 +72,10 @@ public class Board {
 
     public boolean isFinished() {
 
-        for (int r = 0; r< cards.length; r++){
-            for (int c = 0; c < cards.length; c++) {
-                if (cards[r][c].getState()!= Card.STATE_OPENED){
+        for (int r = 0; r< Configs.BOARD_ROW_COL; r++){
+            for (int c = 0; c < Configs.BOARD_ROW_COL; c++) {
+
+                if (cards[r][c].getState()==Card.STATE_CLOSED){
                     return false;
                 }
             }
@@ -92,11 +89,11 @@ public class Board {
 
     public static class Card {
 
-        public static final byte STATE_CLOSED=0;
-        public static final byte STATE_OPENED=1;
+        public static final int STATE_CLOSED=0;
+        public static final int STATE_OPENED=1;
 
 
-        private int state;
+        private int state=STATE_CLOSED;
         private int row;
         private int col;
         private String colorResource;
@@ -133,5 +130,18 @@ public class Board {
             t.state=this.state;
             return t;
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb=new StringBuilder();
+        for (int i = 0; i < Configs.BOARD_ROW_COL; i++) {
+            for (int j = 0; j < Configs.BOARD_ROW_COL; j++) {
+                sb.append(cards[i][j].state==Card.STATE_CLOSED?'C':'O');
+                sb.append('\t');
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
     }
 }

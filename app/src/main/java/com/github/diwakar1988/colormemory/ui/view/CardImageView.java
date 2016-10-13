@@ -11,6 +11,7 @@ import android.widget.ImageView;
 public class CardImageView extends ImageView {
     public int row;
     public int col;
+    public boolean isBackOfCardShowing = true;
     public CardImageView(Context context) {
         super(context);
     }

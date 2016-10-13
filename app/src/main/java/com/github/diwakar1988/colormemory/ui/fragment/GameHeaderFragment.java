@@ -16,6 +16,7 @@ public class GameHeaderFragment extends Fragment {
 
     private View root;
     private  View.OnClickListener mClickListener;
+    private TextView tvScore;
 
     public static GameHeaderFragment newInstance(View.OnClickListener clickListener) {
         GameHeaderFragment fragment = new GameHeaderFragment();
@@ -36,16 +37,21 @@ public class GameHeaderFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         root.findViewById(R.id.btn_high_score).setOnClickListener(mClickListener);
+        tvScore=((TextView)root.findViewById(R.id.tv_score));
 
     }
     public void setScore(int score){
-        ((TextView)root.findViewById(R.id.tv_score)).setText("Score = "+String.valueOf(score));
+        tvScore.setText(String.valueOf(score));
+    }
+    public void resetScore(){
+        tvScore.setText(getString(R.string.score));
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mClickListener = null;
+
     }
 
 }

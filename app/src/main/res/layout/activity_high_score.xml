@@ -46,7 +46,8 @@
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_height_header"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white"
+                android:ellipsize="marquee"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"

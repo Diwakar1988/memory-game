@@ -1,6 +1,7 @@
 package com.github.diwakar1988.colormemory.game;
 
 import com.github.diwakar1988.colormemory.Configs;
+import com.github.diwakar1988.colormemory.db.DataController;
 
 /**
  * Created by diwakar.mishra on 12/10/16.
@@ -43,7 +44,7 @@ public class GameController {
     public boolean isGameFinished(){
         return board.isFinished();
     }
-    public void markTileOpened(int row,int col){
+    public void markCardOpened(int row, int col){
         board.markOpen(row,col);
     }
     public Board.Card getCard(int row, int col){
@@ -51,4 +52,29 @@ public class GameController {
     }
 
 
+    public int getCurrentScore() {
+        return player.getScore();
+    }
+
+    public boolean isCardOpened(int row, int col) {
+        return board.getCard(row,col).getState()== Board.Card.STATE_OPENED;
+    }
+    public ScoreList.Score save(String playerName){
+        ScoreList list = DataController.getInstance().getScoreList();
+        ScoreList.Score score= list.getScore(playerName);
+        if (score==null){
+            score=new ScoreList.Score(playerName,player.getScore());
+            list.add(score);
+        }else if (player.getScore()>score.getScore()){
+            //always store high score of a player
+            score.setScore(player.getScore());
+        }
+        list.updateRanking();
+        DataController.getInstance().saveScoreList();
+        return score;
+    }
+
+//    public String printBoard() {
+//        return board.toString();
+//    }
 }
